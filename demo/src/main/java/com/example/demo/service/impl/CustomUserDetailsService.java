@@ -26,6 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 //        if (user == null) {
 //            throw new UsernameNotFoundException("User not found");
 //        }
+        if (!user.isVerified()) {
+            throw new UsernameNotFoundException("User not verified");
+        }
+
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

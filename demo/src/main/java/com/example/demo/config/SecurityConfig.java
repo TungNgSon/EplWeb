@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/players", true)
+                        .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2

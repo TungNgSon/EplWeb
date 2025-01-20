@@ -22,6 +22,16 @@ public class User {
 
     @Column
     private String verificationCode;
+    @Column
+    private boolean verified;
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
 
     public int getId() {
         return id;

@@ -12,6 +12,10 @@
         <div class="col-md-6">
             <form th:action="@{/login}" method="post">
                 <h2 class="text-center mb-4">Login</h2>
+                <!-- Hiển thị lỗi nếu có -->
+                <div th:if="${error}" class="alert alert-danger">
+                    <p th:text="${error}"></p>
+                </div>
                 <div class="form-group mb-3">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-control" required>

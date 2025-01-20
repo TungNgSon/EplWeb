@@ -28,7 +28,11 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password, or account not verified.");
+        }
         return "login";
     }
 
@@ -49,6 +53,7 @@ public class LoginController {
         // Mã hóa mật khẩu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("USER"); // Đặt mặc định role là "USER"
+        user.setVerified(false);
 
         // Tạo mã xác nhận
         String verificationCode = UUID.randomUUID().toString();
@@ -71,6 +76,7 @@ public class LoginController {
                 + "http://localhost:8080/verify?code=" + user.getVerificationCode() + "\n"
                 + "Thank you,\n"
                 + "Your Company";
+        //String content="xinchao";
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toAddress);
@@ -90,8 +96,8 @@ public class LoginController {
         }
 
         user.setVerificationCode(null);
+        user.setVerified(true);
         userRepository.save(user);
-
         model.addAttribute("message", "Your account has been verified successfully.");
         return "success";
     }
