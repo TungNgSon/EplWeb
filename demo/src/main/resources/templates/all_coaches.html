@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Coaches</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">List of Coaches</h1>
+    <a sec:authorize="hasAuthority('ADMIN')" href="/coaches/add">Create Coach</a>
+    <a href="/players">Players</a>
+    <a href="/teams" style="float: right">Teams</a>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Coach Name</th>
+            <th>Country</th>
+            <th>Age</th>
+            <th>Team Name</th>
+            <th>Team Country</th>
+            <th>Rank</th>
+            <th>Team Image</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the list of coaches -->
+        <tr th:each="coach, iterStat : ${coaches}">
+            <td th:text="${iterStat.index + 1}">1</td> <!-- Serial number -->
+            <td><img th:src="${coach.imageURL}" alt="Coach Image" style="max-width: 100px;"></td> <!-- Coach image -->
+            <td th:text="${coach.name}">Coach Name</td> <!-- Coach name -->
+            <td th:text="${coach.country}">Country</td> <!-- Coach country -->
+            <td th:text="${coach.age}">Age</td> <!-- Coach age -->
+            <td th:text="${coach.team != null ? coach.team.name : 'No team'}">Team Name</td> <!-- Team name if exists -->
+            <td th:text="${coach.team != null ? coach.team.country : '---'}">Team Country</td> <!-- Team country -->
+            <td th:text="${coach.team != null ? coach.team.ranked : '---'}">Rank</td> <!-- Team rank -->
+            <td>
+                <img th:src="${coach.team != null ? coach.team.imageURL : ''}"
+                     th:if="${coach.team != null}"
+                     alt="Team Image"
+                     style="max-width: 100px;">
+            </td>
+            <td>
+                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger"
+                   th:href="@{'/coaches/delete/' + ${coach.id}}">Delete
+
+                </a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-secondary"
+                   th:href="@{'/coaches/edit/' + ${coach.id}}">Edit</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-warning"
+                   th:href="@{'/coaches/select/' + ${coach.id}}">Select Team</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
+                   th:href="@{'/coaches/release/' + ${coach.id}}">Release Coach</a>
+
+            </td>
+
+        </tr>
+        <!-- End loop -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

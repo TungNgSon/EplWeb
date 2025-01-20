@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Player</title>
+</head>
+<body>
+<h1>Add New Player</h1>
+<form  method="post" th:object="${player}" th:action="@{/players/save}">
+    <label for="name">Name:</label>
+    <input th:field="*{name}" type="text" id="name" name="name" placeholder="Enter name" required><br><br>
+
+    <label for="country">Country:</label>
+    <input th:field="*{country}" type="text" id="country" name="country" placeholder="Enter country" required><br><br>
+
+    <label for="age">Age:</label>
+    <input th:field="*{age}" type="number" id="age" name="age" placeholder="Enter age" required><br><br>
+
+    <label for="position">Position:</label>
+    <input th:field="*{position}" type="text" id="position" name="position" placeholder="Enter position" required><br><br>
+
+    <label for="imageURL">ImageURL:</label>
+    <input th:field="*{imageURL}" type="text" id="imageURL" name="imageURL" placeholder="Enter imageURL" required><br><br>
+
+    <label for="videoURL">VideoURL:</label>
+    <input th:field="*{videoURL}" type="text" id="videoURL" name="videoURL" placeholder="Enter videoURL" required><br><br>
+    <button type="submit">Add Player</button>
+</form>
+</body>
+</html>

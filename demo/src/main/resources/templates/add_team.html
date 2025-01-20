@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Team</title>
+</head>
+<body>
+<h1>Add New Team</h1>
+<form  method="post" th:object="${team}" th:action="@{/teams/save}">
+    <label for="name">Name:</label>
+    <input th:field="*{name}" type="text" id="name" name="name" placeholder="Enter name" required><br><br>
+
+    <label for="country">Country:</label>
+    <input th:field="*{country}" type="text" id="country" name="country" placeholder="Enter country" required><br><br>
+
+    <label for="ranked">ranked:</label>
+    <input th:field="*{ranked}" type="number" id="ranked" name="ranked" placeholder="Enter ranked" required><br><br>
+
+    <label for="imageURL">ImageURL:</label>
+    <input th:field="*{imageURL}" type="text" id="imageURL" name="imageURL" placeholder="Enter imageURL" required><br><br>
+
+    <label for="videoURL">VideoURL:</label>
+    <input th:field="*{videoURL}" type="text" id="videoURL" name="videoURL" placeholder="Enter videoURL" required><br><br>
+
+    <label for="locationURL">LocationURL:</label>
+    <input th:field="*{locationURL}" type="text" id="locationURL" name="locationURD" placeholder="Enter locationURL" required><br><br>
+
+    <button type="submit">Add Team</button>
+</form>
+</body>
+</html>
