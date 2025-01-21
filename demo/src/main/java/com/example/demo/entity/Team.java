@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Data
@@ -24,6 +26,27 @@ public class Team {
     private String videoURL;
     @Column(length=5000)
     private String locationURL;
+    public double getLatitude() {
+        return extractCoordinate("latitude");
+    }
+
+    public double getLongitude() {
+        return extractCoordinate("longitude");
+    }
+
+    private double extractCoordinate(String type) {
+        String regex = "!2d(-?\\d+\\.\\d+)!3d(-?\\d+\\.\\d+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(locationURL);
+        if (matcher.find()) {
+            if ("latitude".equals(type)) {
+                return Double.parseDouble(matcher.group(1));
+            } else if ("longitude".equals(type)) {
+                return Double.parseDouble(matcher.group(2));
+            }
+        }
+        throw new IllegalArgumentException("Invalid Google Maps URL");
+    }
     @OneToMany (mappedBy = "team")
     private List<Player> players=new ArrayList<>();
 

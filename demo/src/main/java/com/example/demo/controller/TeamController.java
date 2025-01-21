@@ -5,6 +5,7 @@ import com.example.demo.entity.Player;
 import com.example.demo.entity.Team;
 import com.example.demo.service.impl.PlayerServiceImpl;
 import com.example.demo.service.impl.TeamServiceImpl;
+import com.example.demo.service.impl.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/teams")
 public class TeamController {
+    @Autowired
+    private WeatherService weatherService;
     @Autowired
     private TeamServiceImpl teamService;
     @Autowired
@@ -124,6 +128,10 @@ public class TeamController {
     public String viewTeamDetail(@PathVariable int teamId,Model model)
     {
         Team team=teamService.findById(teamId);
+        Double latitude=team.getLatitude();
+        Double longitude=team.getLongitude();
+        Map<String, Object> weatherData = weatherService.getWeather1(latitude,longitude);
+        model.addAttribute("weatherData", weatherData);
         model.addAttribute("team",team);
         return "team_detail";
     }

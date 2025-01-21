@@ -52,6 +52,8 @@
 <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-button">
     <button class="btn btn-danger">Logout</button>
 </form>
+<a  class="btn btn-primary"
+th:href="@{'/chat' }">Chat With Ai</a>
 
 <h1>List of Players([[${totalItems}]] players)</h1>
 <div class="container" sec:authorize="isAuthenticated()" >

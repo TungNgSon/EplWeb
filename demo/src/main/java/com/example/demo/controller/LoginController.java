@@ -36,6 +36,7 @@ public class LoginController {
         return "login";
     }
 
+
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
@@ -53,17 +54,17 @@ public class LoginController {
         // Mã hóa mật khẩu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("USER"); // Đặt mặc định role là "USER"
-        user.setVerified(false);
+//        user.setVerified(false);
 
         // Tạo mã xác nhận
-        String verificationCode = UUID.randomUUID().toString();
-        user.setVerificationCode(verificationCode);
+//        String verificationCode = UUID.randomUUID().toString();
+//        user.setVerificationCode(verificationCode);
 
         // Lưu user vào database
         userRepository.save(user);
 
         // Gửi email xác nhận
-        sendVerificationEmail(user);
+//        sendVerificationEmail(user);
 
         return "redirect:/login"; // Chuyển hướng về trang đăng nhập sau khi đăng ký thành công
     }

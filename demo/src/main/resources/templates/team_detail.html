@@ -15,6 +15,8 @@
             <h3 class="card-title text-center" th:text="${team.name}"></h3>
             <p class="card-text"><strong>Country:</strong> <span th:text="${team.country}"></span></p>
             <p class="card-text"><strong>Ranked:</strong> <span th:text="${team.ranked}"></span></p>
+            <p class="card-text"><strong>Latitude:</strong> <span th:text="${team.latitude}"></span></p>
+            <p class="card-text"><strong>Longitude:</strong> <span th:text="${team.longitude}"></span></p>
 
             <div class="row mt-4">
                 <!-- Hình ảnh -->
@@ -55,6 +57,17 @@
                                 loading="lazy">
                         </iframe>
                     </div>
+                </div>
+            </div>
+
+            <!-- Thông tin thời tiết -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h5>Weather Information</h5>
+                    <p class="card-text"><strong>Temperature:</strong> <span th:text="${weatherData.main.temp}"></span> °C</p>
+                    <p class="card-text"><strong>Humidity:</strong> <span th:text="${weatherData.main.humidity}"></span> %</p>
+                    <p class="card-text"><strong>Pressure:</strong> <span th:text="${weatherData.main.pressure}"></span> hPa</p>
+                    <p class="card-text"><strong>Weather:</strong> <span th:text="${weatherData.weather[0].description}"></span></p>
                 </div>
             </div>
 

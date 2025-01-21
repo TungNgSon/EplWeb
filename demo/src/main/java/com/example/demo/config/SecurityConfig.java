@@ -26,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable()) // Vô hiệu hóa CSRF
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/register", "/oauth2/**", "/verify").permitAll()
+                        .requestMatchers("/login", "/register", "/oauth2/**", "/verify","/weather").permitAll()
 //                        .requestMatchers("/players").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
